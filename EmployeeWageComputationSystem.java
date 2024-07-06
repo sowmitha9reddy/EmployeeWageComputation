@@ -3,20 +3,12 @@ package Employee_Wage;
 import java.util.Scanner;
 
   abstract class Company{  
-	 
 	
-	  
-	   
-	abstract public int  computeDailyWage(int hours, int wagePerHour);
-	 abstract public void computeMonthlyWage(int wagePerHour, int maxWorkingDays, int maxWorkingHours);
+	 abstract public void computeEmployWage(int wagePerHour, int maxWorkingDays, int maxWorkingHours);
 	  
   }
 class Employee extends Company
 {
-	
-
-	
-	   @Override
 	    public int computeDailyWage(int hours, int wagePerHour) {
 	        return hours * wagePerHour;
 	    }    
@@ -37,8 +29,8 @@ class Employee extends Company
             }
 			return 0;
 	    }
-  
-	    public void computeMonthlyWage(int wagePerHour, int maxWorkingDays, int maxWorkingHours) {
+            @Override  
+	    public void computeEmployeeWage(int wagePerHour, int maxWorkingDays, int maxWorkingHours) {
 	        int totalWage = 0;
 	         int totalWorkingDays = 0;
 	        int totalWorkingHours = 0;
@@ -63,10 +55,6 @@ class Employee extends Company
 	        System.out.println("Total Wage  of Employ for" + totalWorkingDays + " days and " + totalWorkingHours + " hours is: " + totalWage);
 	    }
 
-	   
-	        
-	       
-	    
 	}
 
 public class EmployeeWageComputationSystem {
@@ -87,13 +75,9 @@ public class EmployeeWageComputationSystem {
 	        int wPH=Integer.parseInt(st[1]);
 	        int mWH=Integer.parseInt(st[3]);
 	        System.out.println("Employ of"+cName);
-	        employ.computeMonthlyWage(wPH,mWD,mWH);
+	        employ.computeEmployWage(wPH,mWD,mWH);
 	        System.out.println("----------");
 	        }
-	     ;
-	       
-
-	      
-	   }
+	}
 
 }
