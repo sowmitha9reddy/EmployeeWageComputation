@@ -1,83 +1,96 @@
 package Employee_Wage;
-import java.util.Random;
 
-    
-class Employee {
+import java.util.Scanner;
+
+  abstract class Company{  
+	 
 	
-	    static final int IS_ABSENT = 0;
-	    static final int IS_FULL_TIME = 1;
-	    static final int IS_PART_TIME = 2;
-
 	  
-	    public int computeDailyWage(int hours) {
-	    	int wagePerHour=20;
+	   
+	abstract public int  computeDailyWage(int hours, int wagePerHour);
+	 abstract public void computeMonthlyWage(int wagePerHour, int maxWorkingDays, int maxWorkingHours);
+	  
+  }
+class Employee extends Company
+{
+	
+
+	
+	   @Override
+	    public int computeDailyWage(int hours, int wagePerHour) {
 	        return hours * wagePerHour;
-	    }
-
-	  
+	    }    
+		   
 	    public int getWorkingHours() {
-	        Random random = new Random();
-	        int attendance = random.nextInt(3); 
-	        switch (attendance) {
-	            case IS_ABSENT:
-	                return 0;
-	            case IS_FULL_TIME:
-	                return 8;
-	            case IS_PART_TIME:
-	                return 4;
-	            default:
-	                return 0;
-	        }
+	      
+	    	int attendance = (int) (Math.random() * 3); //0, 1, 2
+            switch (attendance) {
+                case 0:
+                   return 0; // 0 hours absent
+                  
+                case 1:
+                    return 4; // 4 hours for part-time
+                  
+                case 2:
+                   return 8; // 8 hours for full-time
+                   
+            }
+			return 0;
 	    }
-
-	    
-	    public void computeMonthlyWage() {
+  
+	    public void computeMonthlyWage(int wagePerHour, int maxWorkingDays, int maxWorkingHours) {
 	        int totalWage = 0;
-	        int totalWorkingDays = 0;
-	        int totalWorkingHours =0;
-	        int maxWorkingDays=20;
-	        int maxWorkingHours=100;
+	         int totalWorkingDays = 0;
+	        int totalWorkingHours = 0;
 
 	        while (totalWorkingDays < maxWorkingDays && totalWorkingHours < maxWorkingHours) {
 	            int hours = getWorkingHours();
 	            if (hours > 0) {
-	               
-	             
-					int dailyWage = computeDailyWage(hours);
+	                int dailyWage = computeDailyWage(hours, wagePerHour);
 	                totalWage += dailyWage;
+	             
+	                totalWorkingHours += hours;
+
+	                System.out.println("Day " + totalWorkingDays + ": Hours Worked " + hours + " : Total Hours: " + totalWorkingHours);
 	               
-	                totalWorkingHours+= hours;
-	                System.out.println( "day"+( totalWorkingDays+1)+ " Hours Worked: " + hours + "  Wage: " + dailyWage);
-	            } 
+	            }
 	            else {
-	                System.out.println(  "Day"+(totalWorkingDays+1)+" Employee is absent");
-	                
+	            	System.out.println("Day " + totalWorkingDays + "absent");
 	            }
 	            totalWorkingDays++;
 	        }
-	       
-	        System.out.println("Total Wage for "   + totalWorkingDays + " days and " + totalWorkingHours + " hours is: " + totalWage);
+
+	        System.out.println("Total Wage  of Employ for" + totalWorkingDays + " days and " + totalWorkingHours + " hours is: " + totalWage);
 	    }
 
-	  
-
-		
-	      
-	           
-	       
 	   
-
- }
+	        
+	       
+	    
+	}
 
 public class EmployeeWageComputationSystem {
 	public static void main(String[] args) {
 	       System.out.println("Welcome to Employee Wage Computation");
 
-	       
+	       Scanner scan=new Scanner(System.in);
 	       Employee employ = new Employee();
-	       
+	       System.out.println("Enter the no.of Companies");
+	        int n=scan.nextInt();
+	        for(int i=0;i<n;i++) {
+	        System.out.println("Enter the details of Company(Company Name,Wage per Hour,Maximum Working Days,Maximum Working Hours)Ex:(companyA,20,20,100))");
 	        
-	        employ.computeMonthlyWage();
+	        String s=scan.next();
+	        String[] st=s.split(",");
+	        int mWD=Integer.parseInt(st[2]);
+	        String cName=st[0];
+	        int wPH=Integer.parseInt(st[1]);
+	        int mWH=Integer.parseInt(st[3]);
+	        System.out.println("Employ of"+cName);
+	        employ.computeMonthlyWage(wPH,mWD,mWH);
+	        System.out.println("----------");
+	        }
+	     ;
 	       
 
 	      
