@@ -1,51 +1,23 @@
 package Employee_Wage;
+
+import java.util.Random;
+
 class Employee 
 {         
-	    public int computeDailyWage(int hours, int wagePerHour) {
-	        return hours * wagePerHour;
-	    }    
-		   
-	    public int getWorkingHours() {
-	      
-	    	int attendance = (int) (Math.random() * 3); 
-            switch (attendance) {
-                case 0:
-                   return 0;
-                  
-                case 1:
-                    return 4; 
-                  
-                case 2:
-                   return 8; 
-                   
-            }
-			return 0;
-	    }
-      
-	    public void computeMonthlyWage(int wagePerHour, int maxWorkingDays, int maxWorkingHours) {
-	        int totalWage = 0;
-	         int totalWorkingDays = 0;
-	        int totalWorkingHours = 0;
+	 public String checkAttendance() {
+		   	
+		   	Random random = new Random();
 
-	        while (totalWorkingDays < maxWorkingDays && totalWorkingHours < maxWorkingHours) {
-	            int hours = getWorkingHours();
-	            if (hours > 0) {
-	                int dailyWage = computeDailyWage(hours, wagePerHour);
-	                totalWage += dailyWage;
-	             
-	                totalWorkingHours += hours;
+				int randomInt = random.nextInt(3); // 0, 1, or 2
 
-	                System.out.println("Day " + totalWorkingDays + ": Hours Worked " + hours + " : Total Hours: " + totalWorkingHours);
-	               
-	            }
-	            else {
-	            	System.out.println("Day " + totalWorkingDays + "absent");
-	            }
-	            totalWorkingDays++;
-	        }
-
-	        System.out.println("Total Wage  of Employ for" + (totalWorkingDays+1) + " days and " + totalWorkingHours + " hours is: " + totalWage);
-	    }
+		       switch (randomInt) {
+		           case 0:
+		               return "FullTime";
+		           case 1:
+		               return "PartTime";
+		           default:
+		               return "Absent";
+		       }
 }
 
 
